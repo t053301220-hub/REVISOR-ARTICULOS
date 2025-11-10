@@ -87,7 +87,7 @@ with st.sidebar:
     st.info("""
     Instrucciones rápidas:
     - Sube hasta 30 archivos PDF (artículos).
-    - Presiona **Evaluar**: el sistema simulará la revisión y generará notas y comentarios.
+    - Presiona **Evaluar**: el sistema hara la revisión y generará notas y comentarios.
     - Puedes descargar un PDF con todos los resultados.
     """)
     st.markdown("---")
@@ -338,4 +338,5 @@ if 'resultados' in st.session_state and st.session_state.resultados:
         buffer.seek(0)
         fn = f"reporte_revision_{st.session_state.curso_codigo}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
         st.download_button("⬇️ Descargar PDF", data=buffer, file_name=fn, mime="application/pdf")
+
 
