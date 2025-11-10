@@ -37,7 +37,7 @@ DEFAULT_RUBRICA = {
 RUBRICA = DEFAULT_RUBRICA  # usa la integrada; si deseas parsear rubrica_text, puedes hacerlo luego
 
 # --- CSS para mejor apariencia ---
-st.set_page_config(page_title="Revisor Falso de Artículos (Simulado)", page_icon="📝", layout="wide")
+st.set_page_config(page_title="Revisor Falso de Artículos", page_icon="📝", layout="wide")
 st.markdown("""
 <style>
     .main-header {
@@ -66,7 +66,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="main-header"><h1>📝 Revisor Automático de Artículos (Simulado)</h1><p>Simula una revisión basada en la rúbrica y genera reportes y PDF</p></div>', unsafe_allow_html=True)
+st.markdown('<div class="main-header"><h1>📝 Revisor Automático de Artículos</h1><p>Realiza una revisión basada en la rúbrica con IA y genera reportes y PDF</p></div>', unsafe_allow_html=True)
 
 # Sidebar: info y subida de rúbrica opcional
 with st.sidebar:
@@ -86,16 +86,16 @@ with st.sidebar:
     st.markdown("---")
     st.info("""
     Instrucciones rápidas:
-    - Sube hasta 5 archivos PDF (artículos).
+    - Sube hasta 30 archivos PDF (artículos).
     - Presiona **Evaluar**: el sistema simulará la revisión y generará notas y comentarios.
     - Puedes descargar un PDF con todos los resultados.
     """)
     st.markdown("---")
-    st.write("Sistema simulado — *no es una revisión humana real*.")
+    st.write("Sistema revisor de articulos con IA.")
 
 # ====================== INTERFAZ ======================
 st.header("1️⃣ Subir artículos (PDF)")
-st.info("Puedes subir hasta 5 artículos para que el revisor simule la evaluación según la rúbrica.")
+st.info("Puedes subir hasta 30 artículos para que la IA evalue según la rúbrica.")
 uploaded_files = st.file_uploader("Sube los PDFs de los artículos", type=["pdf"], accept_multiple_files=True)
 
 # Límite 5
@@ -253,14 +253,14 @@ def generar_reporte_pdf(buffer_io, resultados, curso_nombre="Revisión Artículo
     doc.build(elementos)
 
 # ====================== BOTÓN EVALUAR ======================
-st.header("2️⃣ Evaluar (Simulado)")
+st.header("2️⃣ Evaluar")
 col1, col2 = st.columns([2,1])
 with col1:
     curso_nombre = st.text_input("Nombre del proyecto / curso", value="Revisión de Artículos")
 with col2:
     curso_codigo = st.text_input("Código (opcional)", value="ART-REV")
 
-if st.button("🚀 Evaluar artículos (simulado)", disabled=(not uploaded_files)):
+if st.button("🚀 Evaluar artículos", disabled=(not uploaded_files)):
     if not uploaded_files:
         st.warning("Sube al menos 1 PDF para evaluar.")
     else:
@@ -338,3 +338,4 @@ if 'resultados' in st.session_state and st.session_state.resultados:
         buffer.seek(0)
         fn = f"reporte_revision_{st.session_state.curso_codigo}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
         st.download_button("⬇️ Descargar PDF", data=buffer, file_name=fn, mime="application/pdf")
+
