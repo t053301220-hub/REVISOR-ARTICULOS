@@ -214,7 +214,7 @@ def generar_reporte_pdf(buffer_io, resultados, curso_nombre="Revisión Artículo
         textColor=colors.HexColor('#667eea'),
         alignment=TA_CENTER
     )
-    elementos.append(Paragraph("📝 REPORTE DE REVISIÓN SIMULADA", titulo_style))
+    elementos.append(Paragraph("📝 REPORTE DE REVISIÓN", titulo_style))
     elementos.append(Spacer(1, 0.2*cm))
     elementos.append(Paragraph(f"Curso / Proyecto: {curso_nombre} — {curso_codigo}", styles['Normal']))
     elementos.append(Paragraph(f"Fecha: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}", styles['Normal']))
@@ -264,7 +264,7 @@ if st.button("🚀 Evaluar artículos", disabled=(not uploaded_files)):
     if not uploaded_files:
         st.warning("Sube al menos 1 PDF para evaluar.")
     else:
-        st.info("Iniciando evaluación simulada...")
+        st.info("Iniciando evaluación...")
         progreso = st.progress(0)
         resultados = []
         total = len(uploaded_files)
@@ -338,5 +338,6 @@ if 'resultados' in st.session_state and st.session_state.resultados:
         buffer.seek(0)
         fn = f"reporte_revision_{st.session_state.curso_codigo}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
         st.download_button("⬇️ Descargar PDF", data=buffer, file_name=fn, mime="application/pdf")
+
 
 
